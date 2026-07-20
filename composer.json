@@ -1,0 +1,52 @@
+{
+    "name": "wahib-el-khadiri/task-manager",
+    "description": "Enterprise-grade Task & Project Management System built with PHP",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "WAHIB EL KHADIRI",
+            "role": "Full-Stack Developer"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "ext-pdo": "*",
+        "ext-mbstring": "*",
+        "ext-json": "*",
+        "ext-fileinfo": "*",
+        "vlucas/phpdotenv": "^5.6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.5",
+        "phpstan/phpstan": "^1.11",
+        "squizlabs/php_codesniffer": "^3.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "App\\Bootstrap\\": "bootstrap/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "start": "php -S localhost:8000 -t public/",
+        "test": "phpunit",
+        "lint": "phpcs --standard=PSR12 app/ public/ routes/",
+        "lint-fix": "phpcbf --standard=PSR12 app/ public/ routes/",
+        "analyse": "phpstan analyse app/ bootstrap/ --level=5",
+        "check": [
+            "@lint",
+            "@analyse",
+            "@test"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    }
+}
