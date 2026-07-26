@@ -10,6 +10,7 @@ interface UserRepositoryInterface extends RepositoryInterface
 {
     public function findByEmail(string $email): ?array;
     public function create(array $data): int;
+    public function update(int $id, array $data): bool;
     public function updateLastLogin(int $id): void;
     public function getProjects(int $userId): array;
     public function getTeams(int $userId): array;

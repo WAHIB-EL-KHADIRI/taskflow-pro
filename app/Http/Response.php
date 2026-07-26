@@ -6,7 +6,7 @@ namespace App\Http;
 
 class Response
 {
-    public static function json(array $data, int $status = 200): void
+    public static function json(array $data, int $status = 200): never
     {
         http_response_code($status);
         header('Content-Type: application/json; charset=utf-8');
@@ -14,27 +14,27 @@ class Response
         exit();
     }
 
-    public static function success(mixed $data = null, string $message = 'Succes', int $status = 200): void
+    public static function success(mixed $data = null, string $message = 'Succes', int $status = 200): never
     {
         self::json(['success' => true, 'message' => $message, 'data' => $data], $status);
     }
 
-    public static function error(string $message = 'Erreur', int $status = 400, ?array $errors = null): void
+    public static function error(string $message = 'Erreur', int $status = 400, ?array $errors = null): never
     {
         self::json(['success' => false, 'message' => $message, 'errors' => $errors], $status);
     }
 
-    public static function notFound(string $message = 'Introuvable'): void
+    public static function notFound(string $message = 'Introuvable'): never
     {
         self::error($message, 404);
     }
 
-    public static function forbidden(string $message = 'Acces refuse'): void
+    public static function forbidden(string $message = 'Acces refuse'): never
     {
         self::error($message, 403);
     }
 
-    public static function unauthorized(string $message = 'Non authentifie'): void
+    public static function unauthorized(string $message = 'Non authentifie'): never
     {
         self::error($message, 401);
     }
