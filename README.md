@@ -1,5 +1,11 @@
 # TaskFlow Pro
 
+[![CI](https://github.com/WAHIB-EL-KHADIRI/taskflow-pro/actions/workflows/ci.yml/badge.svg)](https://github.com/WAHIB-EL-KHADIRI/taskflow-pro/actions/workflows/ci.yml)
+[![PHP 8.1+](https://img.shields.io/badge/php-8.1+-777BB4.svg?style=flat&logo=php&logoColor=white)](https://www.php.net/)
+[![PSR-12](https://img.shields.io/badge/code%20style-PSR--12-brightgreen.svg?style=flat)](https://www.php-fig.org/psr/psr-12/)
+[![PHPStan](https://img.shields.io/badge/PHPStan-level%205-2A5EA7.svg?style=flat)](https://phpstan.org/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg?style=flat)](LICENSE)
+
 Enterprise-grade Task & Project Management System built with PHP 8.1+, MySQL, and a custom MVC framework following Clean Architecture principles.
 
 ## Architecture
