@@ -2,6 +2,9 @@
 <ruleset name="TaskFlow Pro">
     <description>PSR-12, with one documented exception.</description>
 
+    <arg name="colors"/>
+    <arg value="sp"/>
+
     <file>app</file>
     <file>public</file>
     <file>routes</file>
@@ -9,17 +12,15 @@
     <exclude-pattern>*/vendor/*</exclude-pattern>
     <exclude-pattern>*/public/assets/*</exclude-pattern>
 
-    <arg name="colors"/>
-    <arg value="sp"/>
+    <rule ref="PSR12"/>
 
-    <rule ref="PSR12">
-        <!--
-            PSR-12 states line length SHOULD stay under 120 characters -- a
-            recommendation, not a requirement. A handful of route definitions
-            and SQL strings read worse when wrapped, so this specific sniff is
-            not enforced. Every PSR-12 rule that is a MUST still fails the
-            build; nothing else is relaxed.
-        -->
-        <exclude name="Generic.Files.LineLength"/>
+    <!--
+        PSR-12 says line length SHOULD stay under 120 characters, which is a
+        recommendation rather than a requirement. A few route definitions and
+        SQL strings read worse when wrapped, so this sniff is silenced. Every
+        mandatory PSR-12 rule still fails the build; nothing else is relaxed.
+    -->
+    <rule ref="Generic.Files.LineLength">
+        <severity>0</severity>
     </rule>
 </ruleset>
