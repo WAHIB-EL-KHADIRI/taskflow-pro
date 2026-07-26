@@ -6,22 +6,18 @@ namespace App\Application\Dashboard;
 
 use App\Domain\User\UserRepositoryInterface;
 use App\Domain\Task\TaskRepositoryInterface;
-use App\Domain\Project\ProjectRepositoryInterface;
 
 class GetDashboardDataUseCase
 {
     private UserRepositoryInterface $userRepository;
     private TaskRepositoryInterface $taskRepository;
-    private ProjectRepositoryInterface $projectRepository;
 
     public function __construct(
         UserRepositoryInterface $userRepository,
-        TaskRepositoryInterface $taskRepository,
-        ProjectRepositoryInterface $projectRepository
+        TaskRepositoryInterface $taskRepository
     ) {
         $this->userRepository = $userRepository;
         $this->taskRepository = $taskRepository;
-        $this->projectRepository = $projectRepository;
     }
 
     public function execute(int $userId): array
