@@ -52,9 +52,15 @@ class Sanitizer
 
     public static function bool(mixed $value): bool
     {
-        if (is_bool($value)) return $value;
-        if (is_numeric($value)) return (int)$value > 0;
-        if (is_string($value)) return in_array(strtolower($value), ['1', 'on', 'true', 'yes']);
+        if (is_bool($value)) {
+            return $value;
+        }
+        if (is_numeric($value)) {
+            return (int)$value > 0;
+        }
+        if (is_string($value)) {
+            return in_array(strtolower($value), ['1', 'on', 'true', 'yes']);
+        }
         return false;
     }
 

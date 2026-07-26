@@ -89,7 +89,9 @@ class Validator
 
     private function ruleUnique(string $field, mixed $value, array $params, array $data): void
     {
-        if (empty($params[0]) || $value === null || $value === '') return;
+        if (empty($params[0]) || $value === null || $value === '') {
+            return;
+        }
         $table = $params[0];
         $column = $params[1] ?? $field;
         $excludeId = $params[2] ?? null;
@@ -144,7 +146,9 @@ class Validator
 
     private function ruleExists(string $field, mixed $value, array $params, array $data): void
     {
-        if (empty($params[0]) || $value === null || $value === '') return;
+        if (empty($params[0]) || $value === null || $value === '') {
+            return;
+        }
         $table = $params[0];
         $column = $params[1] ?? 'id';
         $db = \App\Infrastructure\Persistence\Database::getInstance();
@@ -156,8 +160,12 @@ class Validator
 
     private function ruleFile(string $field, mixed $value, array $params, array $data): void
     {
-        if (!isset($_FILES[$field]) || $_FILES[$field]['error'] !== UPLOAD_ERR_OK) return;
-        if (empty($params[0])) return;
+        if (!isset($_FILES[$field]) || $_FILES[$field]['error'] !== UPLOAD_ERR_OK) {
+            return;
+        }
+        if (empty($params[0])) {
+            return;
+        }
         $ext = strtolower(pathinfo($_FILES[$field]['name'], PATHINFO_EXTENSION));
         $allowed = explode(',', $params[0]);
         if (!in_array($ext, $allowed, true)) {

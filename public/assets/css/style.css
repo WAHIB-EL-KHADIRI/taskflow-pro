@@ -420,36 +420,36 @@ header h1 {
     .container {
         padding: 10px;
     }
-    
+
     header {
         flex-direction: column;
         gap: 15px;
         text-align: center;
     }
-    
+
     .main-nav {
         flex-direction: column;
     }
-    
+
     .filter-form {
         flex-direction: column;
         align-items: stretch;
     }
-    
+
     .filter-form select,
     .filter-form input[type="text"] {
         min-width: 100%;
     }
-    
+
     .form-row {
         grid-template-columns: 1fr;
     }
-    
+
     .task-header {
         flex-direction: column;
         gap: 15px;
     }
-    
+
     .task-actions {
         width: 100%;
         justify-content: flex-start;
