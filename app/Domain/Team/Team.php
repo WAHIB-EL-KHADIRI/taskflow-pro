@@ -16,5 +16,6 @@ class Team
         public readonly bool $isDefault = false,
         public readonly ?string $createdAt = null,
         public readonly ?string $updatedAt = null,
-    ) {}
+    ) {
+    }
 }

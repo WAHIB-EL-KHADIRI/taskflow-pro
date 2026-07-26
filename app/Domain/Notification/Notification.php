@@ -15,5 +15,6 @@ class Notification
         public readonly ?string $link = null,
         public readonly bool $isRead = false,
         public readonly ?string $createdAt = null,
-    ) {}
+    ) {
+    }
 }

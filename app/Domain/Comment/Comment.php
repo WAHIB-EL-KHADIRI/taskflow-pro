@@ -14,5 +14,6 @@ class Comment
         public readonly ?int $parentId = null,
         public readonly ?string $createdAt = null,
         public readonly ?string $updatedAt = null,
-    ) {}
+    ) {
+    }
 }

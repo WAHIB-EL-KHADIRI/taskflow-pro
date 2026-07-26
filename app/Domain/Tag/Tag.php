@@ -12,5 +12,6 @@ class Tag
         public readonly string $color = '#6b7280',
         public readonly int $workspaceId = 0,
         public readonly ?string $createdAt = null,
-    ) {}
+    ) {
+    }
 }

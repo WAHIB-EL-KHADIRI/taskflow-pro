@@ -23,7 +23,8 @@ class User
         public readonly ?string $lastLogin = null,
         public readonly ?string $createdAt = null,
         public readonly ?string $updatedAt = null,
-    ) {}
+    ) {
+    }
 
     public function toArray(): array
     {

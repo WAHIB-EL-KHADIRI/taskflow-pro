@@ -21,5 +21,6 @@ class Task
         public readonly ?string $repeatInterval = null,
         public readonly ?string $createdAt = null,
         public readonly ?string $updatedAt = null,
-    ) {}
+    ) {
+    }
 }

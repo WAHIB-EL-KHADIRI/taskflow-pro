@@ -19,5 +19,6 @@ class Project
         public readonly ?string $endDate = null,
         public readonly ?string $createdAt = null,
         public readonly ?string $updatedAt = null,
-    ) {}
+    ) {
+    }
 }

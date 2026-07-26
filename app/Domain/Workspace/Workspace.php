@@ -15,5 +15,6 @@ class Workspace
         public readonly int $ownerId = 0,
         public readonly ?string $createdAt = null,
         public readonly ?string $updatedAt = null,
-    ) {}
+    ) {
+    }
 }
