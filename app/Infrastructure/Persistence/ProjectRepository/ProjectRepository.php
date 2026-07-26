@@ -98,7 +98,9 @@ class ProjectRepository implements ProjectRepositoryInterface
     public function getProgress(int $projectId): int
     {
         $stats = $this->getStats($projectId);
-        if ($stats['total'] === 0) return 0;
+        if ($stats['total'] === 0) {
+            return 0;
+        }
         return (int)round(($stats['done'] / $stats['total']) * 100);
     }
 

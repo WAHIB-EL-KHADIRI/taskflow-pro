@@ -47,7 +47,9 @@ class FileUpload
 
     public static function delete(?string $path): bool
     {
-        if (empty($path)) return false;
+        if (empty($path)) {
+            return false;
+        }
 
         $fullPath = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . $path;
 
