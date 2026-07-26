@@ -36,8 +36,8 @@
     "scripts": {
         "start": "php -S localhost:8000 -t public/",
         "test": "phpunit",
-        "lint": "phpcs --standard=PSR12 app/ public/ routes/",
-        "lint-fix": "phpcbf --standard=PSR12 app/ public/ routes/",
+        "lint": "phpcs",
+        "lint-fix": "phpcbf",
         "analyse": "phpstan analyse app/ bootstrap/ --level=5",
         "check": [
             "@lint",
