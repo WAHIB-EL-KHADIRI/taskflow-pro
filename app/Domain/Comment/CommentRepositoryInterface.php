@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace App\Domain\Comment;
 
 use App\Domain\Shared\RepositoryInterface;

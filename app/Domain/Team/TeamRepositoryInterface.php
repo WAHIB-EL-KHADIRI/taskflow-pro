@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace App\Domain\Team;
 
 use App\Domain\Shared\RepositoryInterface;

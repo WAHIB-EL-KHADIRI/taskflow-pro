@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace App\Infrastructure\Persistence\ProjectRepository;
 
 use App\Domain\Project\ProjectRepositoryInterface;
