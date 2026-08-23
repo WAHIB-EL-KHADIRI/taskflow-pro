@@ -1,0 +1,20 @@
+version: 2
+
+updates:
+  # Pinning actions to SHAs is only safe if something moves the pins. A pin
+  # nobody updates is a dependency frozen at whatever it was on the day it was
+  # written, unpatched bugs included. Dependabot rewrites the SHA and the
+  # version comment together.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "ci(deps)"
+
+  - package-ecosystem: "composer"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "build(deps)"

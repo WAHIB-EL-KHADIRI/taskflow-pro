@@ -5,14 +5,33 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  # A dormant repository is the one most likely to be broken by something
+  # outside it: a runner image, a PHP patch release, a new phpstan rule. With
+  # no manual trigger the only way to ask "does this still build?" is to push
+  # a commit, which is why the last verdict here was a month old.
+  workflow_dispatch:
+
+# The repository default is already read-only. Declaring it here means the job
+# keeps least privilege even if that default is ever widened, and it does not
+# depend on a setting that lives outside the file.
+permissions:
+  contents: read
 
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: shivammathur/setup-php@v2
+      # Pinned to commit SHAs rather than tags. A tag is a mutable pointer: the
+      # owner of the action -- or anyone who takes over that account -- can move
+      # `v4` to different code, and this job would silently run it. The trailing
+      # comment is what keeps the pin readable; Dependabot updates both.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # 2.37.2
         with:
           php-version: "8.1"
+
       - run: composer install --prefer-dist --no-progress
+
+      # phpcs, then phpstan level 5, then phpunit.
       - run: composer check
