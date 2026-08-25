@@ -17,7 +17,11 @@ class CreateTeamUseCase
 
     public function execute(array $data, int $userId): array
     {
-        $data['created_by'] = $userId;
+        // `teams` has no `created_by` column -- it has `owner_id`, and both it
+        // and `workspace_id` are NOT NULL. Writing the wrong key made
+        // Database::insert() emit a column MySQL rejects, so this use case
+        // could never have inserted a row.
+        $data['owner_id'] = $userId;
         $data['created_at'] = date('Y-m-d H:i:s');
 
         $id = $this->teamRepository->create($data);
