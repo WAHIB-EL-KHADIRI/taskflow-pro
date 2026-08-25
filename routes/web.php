@@ -34,11 +34,11 @@ $router->get('/tasks/{id}', [TaskController::class, 'show'], [AuthMiddleware::cl
 $router->get('/tasks/{id}/edit', [TaskController::class, 'edit'], [AuthMiddleware::class]);
 $router->post('/tasks/{id}/edit', [TaskController::class, 'update'], [AuthMiddleware::class, CsrfMiddleware::class]);
 $router->post('/tasks/{id}/delete', [TaskController::class, 'destroy'], [AuthMiddleware::class, CsrfMiddleware::class]);
-$router->post('/tasks/{id}/status', [TaskController::class, 'updateStatus'], [AuthMiddleware::class]);
-$router->post('/tasks/{id}/position', [TaskController::class, 'updatePosition'], [AuthMiddleware::class]);
-$router->post('/tasks/{id}/comment', [TaskController::class, 'addComment'], [AuthMiddleware::class]);
-$router->post('/tasks/{id}/subtask', [TaskController::class, 'addSubtask'], [AuthMiddleware::class]);
-$router->post('/tasks/{id}/subtask/{sid}/toggle', [TaskController::class, 'toggleSubtask'], [AuthMiddleware::class]);
+$router->post('/tasks/{id}/status', [TaskController::class, 'updateStatus'], [AuthMiddleware::class, CsrfMiddleware::class]);
+$router->post('/tasks/{id}/position', [TaskController::class, 'updatePosition'], [AuthMiddleware::class, CsrfMiddleware::class]);
+$router->post('/tasks/{id}/comment', [TaskController::class, 'addComment'], [AuthMiddleware::class, CsrfMiddleware::class]);
+$router->post('/tasks/{id}/subtask', [TaskController::class, 'addSubtask'], [AuthMiddleware::class, CsrfMiddleware::class]);
+$router->post('/tasks/{id}/subtask/{sid}/toggle', [TaskController::class, 'toggleSubtask'], [AuthMiddleware::class, CsrfMiddleware::class]);
 
 $router->get('/projects', [ProjectController::class, 'index'], [AuthMiddleware::class]);
 $router->get('/projects/create', [ProjectController::class, 'create'], [AuthMiddleware::class]);
@@ -54,24 +54,24 @@ $router->post('/workspaces/create', [WorkspaceController::class, 'store'], [Auth
 $router->get('/workspaces/{id}', [WorkspaceController::class, 'show'], [AuthMiddleware::class]);
 $router->get('/workspaces/{id}/edit', [WorkspaceController::class, 'edit'], [AuthMiddleware::class]);
 $router->post('/workspaces/{id}/edit', [WorkspaceController::class, 'update'], [AuthMiddleware::class, CsrfMiddleware::class]);
-$router->post('/workspaces/{id}/member', [WorkspaceController::class, 'addMember'], [AuthMiddleware::class]);
-$router->post('/workspaces/{id}/member/remove', [WorkspaceController::class, 'removeMember'], [AuthMiddleware::class]);
+$router->post('/workspaces/{id}/member', [WorkspaceController::class, 'addMember'], [AuthMiddleware::class, CsrfMiddleware::class]);
+$router->post('/workspaces/{id}/member/remove', [WorkspaceController::class, 'removeMember'], [AuthMiddleware::class, CsrfMiddleware::class]);
 
 $router->get('/teams', [TeamController::class, 'index'], [AuthMiddleware::class]);
 $router->get('/teams/create', [TeamController::class, 'create'], [AuthMiddleware::class]);
 $router->post('/teams/create', [TeamController::class, 'store'], [AuthMiddleware::class, CsrfMiddleware::class]);
 $router->get('/teams/{id}', [TeamController::class, 'show'], [AuthMiddleware::class]);
-$router->post('/teams/{id}/member', [TeamController::class, 'addMember'], [AuthMiddleware::class]);
+$router->post('/teams/{id}/member', [TeamController::class, 'addMember'], [AuthMiddleware::class, CsrfMiddleware::class]);
 
 $router->get('/settings', [SettingsController::class, 'index'], [AuthMiddleware::class]);
 $router->post('/settings/profile', [SettingsController::class, 'updateProfile'], [AuthMiddleware::class, CsrfMiddleware::class]);
 $router->post('/settings/password', [SettingsController::class, 'updatePassword'], [AuthMiddleware::class, CsrfMiddleware::class]);
-$router->post('/settings/theme', [SettingsController::class, 'updateTheme'], [AuthMiddleware::class]);
-$router->post('/settings/locale', [SettingsController::class, 'updateLocale'], [AuthMiddleware::class]);
+$router->post('/settings/theme', [SettingsController::class, 'updateTheme'], [AuthMiddleware::class, CsrfMiddleware::class]);
+$router->post('/settings/locale', [SettingsController::class, 'updateLocale'], [AuthMiddleware::class, CsrfMiddleware::class]);
 
 $router->get('/api/workspaces', [ApiController::class, 'workspaces'], [AuthMiddleware::class]);
 $router->get('/api/projects', [ApiController::class, 'projects'], [AuthMiddleware::class]);
 $router->get('/api/tasks', [ApiController::class, 'tasks'], [AuthMiddleware::class]);
 $router->get('/api/notifications', [ApiController::class, 'notifications'], [AuthMiddleware::class]);
-$router->post('/api/notifications/read', [ApiController::class, 'markNotificationsRead'], [AuthMiddleware::class]);
+$router->post('/api/notifications/read', [ApiController::class, 'markNotificationsRead'], [AuthMiddleware::class, CsrfMiddleware::class]);
 $router->get('/api/search', [ApiController::class, 'search'], [AuthMiddleware::class]);
