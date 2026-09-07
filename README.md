@@ -6,7 +6,22 @@
 [![PHPStan](https://img.shields.io/badge/PHPStan-level%205-2A5EA7.svg?style=flat)](https://phpstan.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg?style=flat)](LICENSE)
 
-Enterprise-grade Task & Project Management System built with PHP 8.1+, MySQL, and a custom MVC framework following Clean Architecture principles.
+A task and project management system built on a custom MVC framework in PHP 8.1, written to
+practise Clean Architecture: the domain layer holds entities and repository *interfaces*, the
+application layer holds use cases, and PDO implementations live in infrastructure. Nothing in
+the domain knows about HTTP or MySQL.
+
+## Status
+
+This is a learning and portfolio project, and it is honest about where it stands. The
+architecture and the application layer are real, and the auth, dashboard, kanban, calendar and
+settings views exist, added after issue #5 was filed. Two gaps are tracked in the open issues rather than hidden:
+[#5](https://github.com/WAHIB-EL-KHADIRI/taskflow-pro/issues/5) — `resources/lang/` is empty, so
+`Language::get()` falls through and returns the raw key, which makes the fr/en/ar switcher inert —
+and [#2](https://github.com/WAHIB-EL-KHADIRI/taskflow-pro/issues/2) — PHPUnit reports 0% over
+1,168 lines while CI is green.
+
+Read it for the architecture and the use-case layer. Do not deploy it.
 
 ## Architecture
 
@@ -37,7 +52,7 @@ tests/                  # PHPUnit tests
 ## Installation
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/WAHIB-EL-KHADIRI/taskflow-pro.git
 cd taskflow-pro
 cp .env.example .env
 composer install
