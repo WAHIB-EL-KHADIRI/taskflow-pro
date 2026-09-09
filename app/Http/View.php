@@ -32,7 +32,7 @@ class View
 
         $content = self::renderFile($viewPath, array_merge(self::$shared, $data));
 
-        if ($layout !== false && file_exists(self::viewPath("layouts.{$layout}"))) {
+        if (file_exists(self::viewPath("layouts.{$layout}"))) {
             $content = self::renderFile(
                 self::viewPath("layouts.{$layout}"),
                 array_merge(self::$shared, $data, ['slot' => $content])
