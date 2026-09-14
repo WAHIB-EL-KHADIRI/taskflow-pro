@@ -7,6 +7,8 @@ this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.0] — 2026-09-14
+
 ### Added
 
 - MIT `LICENSE` file — the README claimed MIT but no license file existed, which
