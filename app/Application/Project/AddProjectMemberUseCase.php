@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\Project;
 
+use App\Domain\Project\Project;
 use App\Domain\Project\ProjectRepositoryInterface;
 
 class AddProjectMemberUseCase
@@ -24,8 +25,15 @@ class AddProjectMemberUseCase
         int $projectId,
         int $userId,
         int $actorId,
-        string $role = 'member'
+        string $role = Project::ROLE_MEMBER
     ): array {
+        // Reject a role the column cannot hold before it reaches the
+        // driver: an out-of-range ENUM value is stored as '' when strict
+        // mode is off, which reads back as a member nobody can promote.
+        if (!in_array($role, Project::ALLOWED_ROLES, true)) {
+            return ['success' => false, 'message' => 'Role invalide.'];
+        }
+
         $project = $this->projectRepository->findById($projectId);
         if (!$project) {
             return ['success' => false, 'message' => 'Projet introuvable.'];
@@ -37,7 +45,7 @@ class AddProjectMemberUseCase
         // carries AuthMiddleware, which answers "is this someone", not
         // "may this someone change this membership" -- so any logged-in
         // user could have added any account, at any role, to any project.
-        if (!$this->isAdmin($members, $actorId)) {
+        if (!$this->isManager($members, $actorId)) {
             return ['success' => false, 'message' => 'Action non autorisee.'];
         }
 
@@ -55,11 +63,11 @@ class AddProjectMemberUseCase
     /**
      * @param array<int, array<string, mixed>> $members
      */
-    private function isAdmin(array $members, int $actorId): bool
+    private function isManager(array $members, int $actorId): bool
     {
         foreach ($members as $member) {
             if ((int) ($member['id'] ?? 0) === $actorId) {
-                return ($member['role'] ?? '') === 'admin';
+                return ($member['role'] ?? '') === Project::ROLE_MANAGER;
             }
         }
 

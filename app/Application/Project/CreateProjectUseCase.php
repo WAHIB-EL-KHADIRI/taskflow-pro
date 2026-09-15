@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\Project;
 
+use App\Domain\Project\Project;
 use App\Domain\Project\ProjectRepositoryInterface;
 
 class CreateProjectUseCase
@@ -24,7 +25,11 @@ class CreateProjectUseCase
 
         $id = $this->projectRepository->create($data);
 
-        $this->projectRepository->addMember($id, $userId, 'admin');
+        // 'admin' is not a member role for a project: the column is
+        // ENUM('manager','member','viewer'), so the creator was stored as
+        // '' (or the insert was rejected) and never matched the privilege
+        // check in AddProjectMemberUseCase.
+        $this->projectRepository->addMember($id, $userId, Project::ROLE_MANAGER);
 
         return ['success' => true, 'message' => 'Projet créé.', 'id' => $id];
     }

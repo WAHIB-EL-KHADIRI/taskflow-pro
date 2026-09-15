@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\Team;
 
+use App\Domain\Team\Team;
 use App\Domain\Team\TeamRepositoryInterface;
 
 class CreateTeamUseCase
@@ -26,7 +27,11 @@ class CreateTeamUseCase
 
         $id = $this->teamRepository->create($data);
 
-        $this->teamRepository->addMember($id, $userId, 'admin');
+        // 'admin' is not a member role for a team: the column is
+        // ENUM('lead','member'), so the creator was stored as '' (or the
+        // insert was rejected) and never matched the privilege check in
+        // AddTeamMemberUseCase -- which made that use case unusable.
+        $this->teamRepository->addMember($id, $userId, Team::ROLE_LEAD);
 
         return ['success' => true, 'message' => 'Équipe créée.', 'id' => $id];
     }

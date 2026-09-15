@@ -6,6 +6,19 @@ namespace App\Domain\Project;
 
 class Project
 {
+    /**
+     * Mirrors `project_members`.`role` ENUM('manager','member','viewer') in
+     * database/migrate.php. A value outside this set is not a weaker
+     * permission -- MySQL rejects it in strict mode, and stores '' otherwise,
+     * which no privilege check can ever match.
+     */
+    public const ROLE_MANAGER = 'manager';
+    public const ROLE_MEMBER = 'member';
+    public const ROLE_VIEWER = 'viewer';
+
+    /** @var list<string> */
+    public const ALLOWED_ROLES = [self::ROLE_MANAGER, self::ROLE_MEMBER, self::ROLE_VIEWER];
+
     public function __construct(
         public readonly ?int $id = null,
         public readonly string $name = '',
