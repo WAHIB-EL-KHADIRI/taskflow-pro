@@ -5,6 +5,7 @@
          colors="true"
          failOnRisky="true"
          failOnWarning="true"
+         failOnEmptyTestSuite="true"
 >
     <testsuites>
         <testsuite name="Tests">
