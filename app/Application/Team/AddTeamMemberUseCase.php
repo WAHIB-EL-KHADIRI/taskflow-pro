@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\Team;
 
+use App\Domain\Team\Team;
 use App\Domain\Team\TeamRepositoryInterface;
 
 class AddTeamMemberUseCase
@@ -24,8 +25,15 @@ class AddTeamMemberUseCase
         int $teamId,
         int $userId,
         int $actorId,
-        string $role = 'member'
+        string $role = Team::ROLE_MEMBER
     ): array {
+        // Reject a role the column cannot hold before it reaches the
+        // driver: an out-of-range ENUM value is stored as '' when strict
+        // mode is off, which reads back as a member nobody can promote.
+        if (!in_array($role, Team::ALLOWED_ROLES, true)) {
+            return ['success' => false, 'message' => 'Role invalide.'];
+        }
+
         $team = $this->teamRepository->findById($teamId);
         if (!$team) {
             return ['success' => false, 'message' => 'Équipe introuvable.'];
@@ -37,7 +45,7 @@ class AddTeamMemberUseCase
         // carries AuthMiddleware, which answers "is this someone", not
         // "may this someone change this membership" -- so any logged-in
         // user could have added any account, at any role, to any team.
-        if (!$this->isAdmin($members, $actorId)) {
+        if (!$this->isLead($members, $actorId)) {
             return ['success' => false, 'message' => 'Action non autorisee.'];
         }
 
@@ -55,11 +63,11 @@ class AddTeamMemberUseCase
     /**
      * @param array<int, array<string, mixed>> $members
      */
-    private function isAdmin(array $members, int $actorId): bool
+    private function isLead(array $members, int $actorId): bool
     {
         foreach ($members as $member) {
             if ((int) ($member['id'] ?? 0) === $actorId) {
-                return ($member['role'] ?? '') === 'admin';
+                return ($member['role'] ?? '') === Team::ROLE_LEAD;
             }
         }
 
