@@ -145,9 +145,40 @@ final class InMemoryWorkspaceRepository implements WorkspaceRepositoryInterface
         return array_values($this->workspaces);
     }
 
+    /**
+     * Upsert, matching WorkspaceRepository::save(): an `id` in the payload
+     * means UPDATE that row, its absence means INSERT. A double that always
+     * inserted would let an update silently create a second workspace and
+     * still report success.
+     */
     public function save(array $data): int
     {
-        return $this->create($data);
+        if (empty($data['id'])) {
+            return $this->create($data);
+        }
+
+        $id = (int) $data['id'];
+        unset($data['id']);
+
+        if (!isset($this->workspaces[$id])) {
+            throw new InvalidArgumentException(
+                sprintf('UPDATE matched no row: workspace %d does not exist', $id)
+            );
+        }
+
+        $unknown = array_diff(array_keys($data), self::COLUMNS);
+        if ($unknown !== []) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    "SQLSTATE[42S22]: Unknown column '%s' in 'field list'",
+                    (string) reset($unknown)
+                )
+            );
+        }
+
+        $this->workspaces[$id] = $data + $this->workspaces[$id];
+
+        return $id;
     }
 
     public function delete(int $id): bool
