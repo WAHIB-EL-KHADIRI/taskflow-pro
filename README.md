@@ -17,7 +17,7 @@ This is a learning and portfolio project, and it is honest about where it stands
 architecture and the application layer are real, and the auth, dashboard, kanban, calendar and
 settings views exist, added after issue #5 was filed. Two gaps are tracked in the open issues rather than hidden:
 [#5](https://github.com/WAHIB-EL-KHADIRI/taskflow-pro/issues/5) — `resources/lang/` is empty, so
-`Language::get()` falls through and returns the raw key, which makes the fr/en/ar switcher inert —
+`Language::get()` falls through and returns the raw key. **The fr/en/ar language switcher is planned / not yet implemented** (no translation files exist yet; the issue is closed but `resources/lang/` still contains only `.gitkeep`) —
 and [#2](https://github.com/WAHIB-EL-KHADIRI/taskflow-pro/issues/2) — PHPUnit reports 0% over
 1,168 lines while CI is green.
 
@@ -28,7 +28,7 @@ Read it for the architecture and the use-case layer. Do not deploy it.
 ```
 app/
 ├── Application/        # Use cases (business logic orchestration)
-├── Core/               # Shared services (i18n)
+├── Core/               # Shared services (i18n scaffolding; translations not yet implemented)
 ├── Domain/             # Entities and repository interfaces
 ├── Http/               # Controllers, middleware, request/response, routing
 └── Infrastructure/     # Database repositories (PDO)
@@ -36,7 +36,7 @@ bootstrap/              # Application bootstrap
 config/                 # (reads from .env via Dotenv)
 database/               # Migration scripts
 public/                 # Web root (entry point: index.php)
-resources/              # Views, translations
+resources/              # Views (translations in resources/lang/ are planned, currently empty)
 routes/                 # Route definitions
 storage/                # Cache, logs, sessions, uploads
 tests/                  # PHPUnit tests
